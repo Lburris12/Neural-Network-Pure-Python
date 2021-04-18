@@ -1,4 +1,6 @@
 # Neural-Network-Pure-Python
+*This neural network by no means out preforms the NNs provided by libraries such as sklearn or tensorflow. It was created for better understanding of how individual parts and concepts of NNs work.*
+
 created using python and numpy
 
 ## Description
@@ -36,4 +38,3 @@ After you have tested your model you can check the accuracy of it by running:
 `print(model.accuracy)`
 
 *Note: this will only work if you have run "model.test" previously*
-
