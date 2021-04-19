@@ -5,7 +5,10 @@ import numpy as np
 def convert_labels(labels):
     #convert label into an array 
     variance = set(labels)
-    new_labels = [[0 for i in range(len(variance))] for j in range(len(labels))]
+    
+    new_labels = [[0 for i in range(len(variance))]\
+                  for j in range(len(labels))]
+    
     for i, label in enumerate(labels):
         new_labels[i][label] = 1
     
@@ -16,10 +19,14 @@ class NeuralNetwork:
         self.activation_function = activation_function
 
         if self.activation_function == 'sigmoid':
-            self.layers = [SigmoidLayer(n_inputs, n_neurons) for n_inputs, n_neurons in layer_details]
+            
+            self.layers = [SigmoidLayer(n_inputs, n_neurons)\
+                           for n_inputs, n_neurons in layer_details]
 
         elif self.activation_function == 'relu':
-            self.layers = [ReluLayer(n_inputs, n_neurons) for n_inputs, n_neurons in layer_details]
+            
+            self.layers = [ReluLayer(n_inputs, n_neurons)\
+                           for n_inputs, n_neurons in layer_details]
 
     def forward_prop(self, inputs):
         #propogate data forward through network
@@ -50,10 +57,12 @@ class NeuralNetwork:
             else:
                 dc_dcl = np.sum(prev_dc_dz * prev_layer.weights, axis=1)
                 dc_dz = dc_dcl * func_derivative
-                #compute the partial derivative of the cost function with repect to the biases of the current layer
+                """compute the partial derivative of the cost function with
+                respect to the biases of the current layer"""
                 
             dc_dw = np.dot(self.layers[-(i+2)].out.T, dc_dz)
-            #compute the partial derivative of the cost function with respect to the weights of the current layer
+            """compute the partial derivative of the cost function 
+            with respect to the weights of the current layer"""
             
             alter_values.insert(0, [])
             alter_values[0].append(learning_rate * dc_dw)
@@ -72,7 +81,8 @@ class NeuralNetwork:
     
     def fit(self, inputs, labels, learning_rate, iters):
         labels = convert_labels(labels)
-        #convert labels to arrays in order to be compared to the output layer of the neural network
+        """convert labels to arrays in order to be 
+        compared to the output layer of the neural network"""
 
         length = len(inputs)
         for i in range(iters):
